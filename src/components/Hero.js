@@ -43,7 +43,7 @@ export default function Hero() {
           <p className="lead">Inspiring children to learn, explore and grow — small classes, big hearts.</p>
           <div className="mt-4">
             <Button href="#about" className="me-2" variant="primary">Learn More</Button>
-            <Button href="#contact" variant="outline-light">Enroll Now</Button>
+            <Button href="#contact" variant="outline-light">Contact Us</Button>
           </div>
         </motion.div>
       </Container>
