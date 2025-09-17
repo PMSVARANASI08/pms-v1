@@ -23,18 +23,6 @@ export default function Contact() {
               <p className="mb-4">
                 Have questions or want to know more about {SCHOOL.FULL_NAME}? Reach out to us and our team will get back to you soon.
               </p>
-              {/* <Form className="w-100 mt-3">
-                <Form.Group className="mb-2" controlId="name">
-                  <Form.Control placeholder="Your Name" />
-                </Form.Group>
-                <Form.Group className="mb-2" controlId="email">
-                  <Form.Control placeholder="Your Email" />
-                </Form.Group>
-                <Form.Group className="mb-2" controlId="message">
-                  <Form.Control as="textarea" rows={3} placeholder="Your Message" />
-                </Form.Group>
-                <Button variant="primary">Send Message</Button>
-              </Form> */}
               <ContactForm />
             </motion.div>
           </Col>
