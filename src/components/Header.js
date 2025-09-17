@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import pmsLogo from '../assets/pmsit_logo.png'; // Adjust extension if needed
-import { SCHOOL_NAME_FULL, SCHOOL_SHORT_DESCRIPTION } from '../constants';
+import { SCHOOL } from '../constants';
 
 export default function Header() {
   const [expanded, setExpanded] = useState(false);
@@ -28,8 +28,8 @@ export default function Header() {
             style={{ marginRight: 10, borderRadius: 50 }}
           />
           <div className="d-flex flex-column">
-            {SCHOOL_NAME_FULL}
-            <span style={{ fontSize: '0.8rem', lineHeight: 1 }}>{SCHOOL_SHORT_DESCRIPTION}</span>
+            {SCHOOL.FULL_NAME}
+            <span style={{ fontSize: '0.8rem', lineHeight: 1 }}>{SCHOOL.SHORT_ADDRESS}</span>
           </div>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="nav" />
