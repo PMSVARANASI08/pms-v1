@@ -1,10 +1,11 @@
-import Header from './components/Header';
-import Hero from './components/Hero';
-import About from './components/About';
-import PrincipalMessage from './components/PrincipalMessage';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import PastEvents from './components/PastEvents';
+import Header from './pages/Header';
+import Hero from './pages/Hero';
+import About from './pages/About';
+import PrincipalMessage from './pages/PrincipalMessage';
+import Contact from './pages/Contact';
+import Footer from './pages/Footer';
+import PastEvents from './pages/PastEvents';
+import NewsAndNotices from './pages/NewsAndNotices';
 
 function App(){
   return (
@@ -16,6 +17,7 @@ function App(){
         <PrincipalMessage />
         <PastEvents />
         <Contact />
+        <NewsAndNotices />
       </main>
       <Footer />
     </div>
