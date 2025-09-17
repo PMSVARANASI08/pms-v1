@@ -8,6 +8,7 @@ import hero3 from '../assets/hero3.jpeg';
 const heroImages = [hero1, hero2, hero3];
 const IMAGE_CHANGE_INTERVAL = 5 * 1000; // 10 seconds
 
+
 export default function Hero() {
   const [imgIdx, setImgIdx] = useState(0);
 
@@ -33,17 +34,50 @@ export default function Hero() {
             width: '100%',
             height: '100%',
             zIndex: 0,
-            background: `linear-gradient(90deg, rgba(6,80,160,0.85), rgba(3,169,244,0.6)), url(${heroImages[imgIdx]}) center/cover no-repeat`
+            // Darker overlay for better contrast
+            background: `linear-gradient(90deg, rgba(18, 49, 128, 0.92) 60%, rgba(3,169,244,0.5)), url(${heroImages[imgIdx]}) center/cover no-repeat`
           }}
         />
       </AnimatePresence>
       <Container className="hero-content" style={{ position: 'relative', zIndex: 1 }}>
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-          <h1 className="display-5">Education for the Next Generation</h1>
-          <p className="lead">Inspiring children to learn, explore and grow — small classes, big hearts.</p>
-          <div className="mt-4">
-            <Button href="#about" className="me-2" variant="primary">Learn More</Button>
-            <Button href="#contact" variant="outline-light">Contact Us</Button>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h1
+            className="display-4 fw-bold mb-3"
+            style={{
+              lineHeight: 1.15,
+              color: "#fff",
+              textShadow: "0 2px 16px rgba(0,0,0,0.45), 0 1px 1px rgba(0,0,0,0.25)"
+            }}
+          >
+            Nurturing Curiosity,<br className="d-none d-md-block" />
+            <span className="text-primary" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.25)" }}>
+              Inspiring Excellence
+            </span>
+          </h1>
+          <p
+            className="lead mb-4"
+            style={{
+              maxWidth: 600,
+              color: "#f3f3f3",
+              textShadow: "0 1px 8px rgba(0,0,0,0.35)"
+            }}
+          >
+            Where every child discovers their potential through care, creativity, and confidence.<br className="d-none d-md-block" />
+            <span className="text-light small d-block mt-2" style={{ color: "#e0e0e0" }}>
+              “तमसो मा ज्योतिर्गमय — From darkness to light, from ignorance to knowledge.”
+            </span>
+          </p>
+          <div className="mt-4 d-flex flex-column flex-sm-row gap-2">
+            <Button href="#news-and-notices" className="me-sm-2" variant="primary" size="lg">
+              View News & Notices
+            </Button>
+            <Button href="#contact" variant="outline-light" size="lg">
+              Contact Us
+            </Button>
           </div>
         </motion.div>
       </Container>
