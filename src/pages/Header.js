@@ -39,6 +39,7 @@ export default function Header() {
             <Nav.Link href="#principal">Principal Message</Nav.Link>
             <Nav.Link href="#past-events">Past Events</Nav.Link>
             <Nav.Link href="#contact">Contact</Nav.Link>
+            <Nav.Link href="#news-and-notices">News & Notices</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -1,6 +1,7 @@
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import { SCHOOL } from '../constants';
+import ContactForm from '../components/ContactForm';
 
 export default function Contact() {
   return (
@@ -22,7 +23,7 @@ export default function Contact() {
               <p className="mb-4">
                 Have questions or want to know more about {SCHOOL.FULL_NAME}? Reach out to us and our team will get back to you soon.
               </p>
-              <Form className="w-100 mt-3">
+              {/* <Form className="w-100 mt-3">
                 <Form.Group className="mb-2" controlId="name">
                   <Form.Control placeholder="Your Name" />
                 </Form.Group>
@@ -33,7 +34,8 @@ export default function Contact() {
                   <Form.Control as="textarea" rows={3} placeholder="Your Message" />
                 </Form.Group>
                 <Button variant="primary">Send Message</Button>
-              </Form>
+              </Form> */}
+              <ContactForm />
             </motion.div>
           </Col>
           <Col md={6} className="mt-4">

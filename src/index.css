@@ -67,3 +67,25 @@ section[id] {
   height: 200px;
   object-fit: cover;
 }
+
+.news-card-full {
+  transition: box-shadow 0.2s, transform 0.2s;
+  border-radius: 1rem;
+  border-color: #0d6efd !important;
+  box-shadow: 0 2px 12px rgba(13,110,253,0.06);
+}
+.news-card-full:hover {
+  box-shadow: 0 6px 24px rgba(13,110,253,0.13);
+  transform: translateY(-2px) scale(1.01);
+}
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.7s forwards;
+}
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
