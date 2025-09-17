@@ -76,7 +76,7 @@ export default function Hero() {
               View News & Notices
             </Button>
             <Button href="#contact" variant="outline-light" size="lg">
-              Contact Us
+              Connect With Us
             </Button>
           </div>
         </motion.div>
