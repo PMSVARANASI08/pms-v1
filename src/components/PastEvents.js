@@ -87,32 +87,30 @@ const pastEvents = [
 
 export default function PastEvents() {
   return (
-    <section id="past-events" className="py-5">
-      <Container>
-        <h2 className="text-center mb-4">Glimpses of Past Events</h2>
-        <Row className="justify-content-center g-4">
-          {pastEvents.map((event, i) => (
-            <Col md={4} className="d-flex" key={i}>
-              <motion.div
-                className="w-100"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.03, y: -5 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, ease: 'easeOut', delay: i * 0.1 }}
-              >
-                <Card className="text-center shadow-sm h-100" style={{ cursor: 'pointer' }}>
-                  <Card.Img variant="top" src={event.img} alt={event.title} className="event-grid card" />
-                  <Card.Body>
-                    <Card.Title>{event.title}</Card.Title>
-                    <Card.Text>{event.description}</Card.Text>
-                  </Card.Body>
-                </Card>
-              </motion.div>
-            </Col>
-          ))}
-        </Row>
-      </Container>
-    </section>
+    <Container>
+      <h2 className="text-center mb-4">Glimpses of Past Events</h2>
+      <Row className="justify-content-center g-4">
+        {pastEvents.map((event, i) => (
+          <Col md={4} className="d-flex" key={i}>
+            <motion.div
+              className="w-100"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ scale: 1.03, y: -5 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, ease: 'easeOut', delay: i * 0.1 }}
+            >
+              <Card className="text-center shadow-sm h-100" style={{ cursor: 'pointer' }}>
+                <Card.Img variant="top" src={event.img} alt={event.title} className="event-grid card" style={{ height: "200px", objectFit: "cover" }} />
+                <Card.Body>
+                  <Card.Title>{event.title}</Card.Title>
+                  <Card.Text>{event.description}</Card.Text>
+                </Card.Body>
+              </Card>
+            </motion.div>
+          </Col>
+        ))}
+      </Row>
+    </Container>
   );
 }
