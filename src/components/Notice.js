@@ -1,8 +1,7 @@
-import React from "react";
 import { formatDateToReadable, trimQuotes } from "../utils/strings";
 function Notice({ list }) {
   return (
-    <div className="row g-3">
+    <div className="row g-3 container">
       {list.length === 0 && (
         <div className="text-center text-muted py-4">No notices found.</div>
       )}

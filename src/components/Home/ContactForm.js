@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Form, Button, Spinner, Alert } from "react-bootstrap";
-import { CONTACT_FORM_WEB_APP_URL as SCRIPT_URL } from "../constants";
+// import { CONTACT_FORM_WEB_APP_URL as SCRIPT_URL } from "../constants";
 
 const ContactForm = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("");
   const [sending, setSending] = useState(false);
+
+  const SCRIPT_URL = process.env.REACT_APP_CONTACT_FORM_WEB_APP_URL;
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });

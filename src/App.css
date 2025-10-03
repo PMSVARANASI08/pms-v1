@@ -1,0 +1,30 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh; /* mobile-safe */
+}
+
+header, 
+.navbar {
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1030; /* stay above content */
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  /* padding-top: var(--header-height, 64px); */
+}
+
+footer {
+  flex-shrink: 0;
+}

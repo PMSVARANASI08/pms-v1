@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Container, Button } from 'react-bootstrap';
 import { motion, AnimatePresence } from 'framer-motion';
-import hero1 from '../assets/hero1.jpeg';
-import hero2 from '../assets/hero2.jpeg';
-import hero3 from '../assets/hero3.jpeg';
+import { FaNewspaper, FaEnvelope } from 'react-icons/fa';
+import hero1 from '../../assets/about1.jpeg';
+import hero2 from '../../assets/hero2.jpeg';
+import hero3 from '../../assets/hero3.jpeg';
 
 const heroImages = [hero1, hero2, hero3];
-const IMAGE_CHANGE_INTERVAL = 5 * 1000; // 10 seconds
-
+const IMAGE_CHANGE_INTERVAL = 5 * 1000; // 5 seconds
 
 export default function Hero() {
   const [imgIdx, setImgIdx] = useState(0);
@@ -34,11 +34,11 @@ export default function Hero() {
             width: '100%',
             height: '100%',
             zIndex: 0,
-            // Darker overlay for better contrast
             background: `linear-gradient(90deg, rgba(18, 49, 128, 0.92) 60%, rgba(3,169,244,0.5)), url(${heroImages[imgIdx]}) center/cover no-repeat`
           }}
         />
       </AnimatePresence>
+
       <Container className="hero-content" style={{ position: 'relative', zIndex: 1 }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -58,6 +58,7 @@ export default function Hero() {
               Inspiring Excellence
             </span>
           </h1>
+
           <p
             className="lead mb-4"
             style={{
@@ -71,12 +72,13 @@ export default function Hero() {
               “तमसो मा ज्योतिर्गमय — From darkness to light, from ignorance to knowledge.”
             </span>
           </p>
+
           <div className="mt-4 d-flex flex-column flex-sm-row gap-2">
-            <Button href="#news-and-notices" className="me-sm-2" variant="primary" size="lg">
-              View News & Notices
+            <Button href="news-and-notices" className="me-sm-2 d-flex align-items-center gap-2" variant="primary" size="lg">
+              <FaNewspaper /> View News & Notices
             </Button>
-            <Button href="#contact" variant="outline-light" size="lg">
-              Connect With Us
+            <Button href="#contact" className="d-flex align-items-center gap-2" variant="outline-light" size="lg">
+              <FaEnvelope /> Connect With Us
             </Button>
           </div>
         </motion.div>

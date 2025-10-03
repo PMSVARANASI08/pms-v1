@@ -1,6 +1,7 @@
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { motion } from 'framer-motion';
-import principalImg from '../assets/principal.jpeg';
+import { FaChalkboardTeacher } from 'react-icons/fa';
+import principalImg from '../../assets/principal.jpeg';
 
 export default function PrincipalMessage() {
   return (
@@ -26,7 +27,9 @@ export default function PrincipalMessage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <h2 className="mb-3">From the Principal’s Desk</h2>
+              <h2 className="mb-3 d-flex align-items-center gap-2">
+                <FaChalkboardTeacher className="text-primary" /> From the Principal’s Desk
+              </h2>
               <p>
                 At Police Modern School, we believe that education is not just about academics but about nurturing responsible, confident, and compassionate individuals. As the Principal, it is my privilege to lead a team of dedicated teachers and staff who work tirelessly to create an environment where every child can explore their potential and achieve excellence.
               </p>
