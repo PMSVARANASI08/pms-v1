@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { db } from "../firebase";
-import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
-import { Container, Row, Col, Spinner, Card, ButtonGroup, Button } from "react-bootstrap";
+import { collection, query, orderBy, getDocs } from "firebase/firestore";
+import { Container, Spinner, ButtonGroup, Button, Card } from "react-bootstrap";
 import { motion } from "framer-motion";
 import {
   FaImages,
@@ -11,6 +11,7 @@ import {
   FaTh,
   FaGripHorizontal,
   FaSyncAlt,
+  FaSquare
 } from "react-icons/fa";
 
 function Gallery() {
@@ -21,37 +22,55 @@ function Gallery() {
   const [refreshKey, setRefreshKey] = useState(0);
 
   const [visibleCount, setVisibleCount] = useState(0);
-  const rowsPerLoad = 3; // Load 3 rows at a time
+  const rowsOfImagesPerLoad = 2; // load 2 rows at a time (lighter for mobile)
   const observerRef = useRef();
 
-  const imagesPerLoad = columns * rowsPerLoad;
+  const imagesPerLoad = columns * rowsOfImagesPerLoad;
 
-  // Fetch images from Firestore
+  // Detect small screen & set default columns
   useEffect(() => {
-    const q = query(collection(db, "gallery"), orderBy("createdAt", sortOrder));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
+    const handleResize = () => {
+      if (window.innerWidth < 576) {
+        setColumns(1); // Force 1 column on mobile
+      }
+    };
+    handleResize(); // run once at mount
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Fetch images (one-time fetch)
+  useEffect(() => {
+    const fetchImages = async () => {
+      setLoading(true);
+      const q = query(collection(db, "gallery"), orderBy("createdAt", sortOrder));
+      const snapshot = await getDocs(q);
       const imgData = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
       setImages(imgData);
-      setLoading(false);
       setVisibleCount(Math.min(imagesPerLoad, imgData.length));
-    });
+      setLoading(false);
+    };
 
-    return () => unsubscribe();
+    fetchImages();
   }, [sortOrder, refreshKey, columns]);
 
   // Infinite scroll handler
-  const handleObserver = useCallback((entries) => {
-    const target = entries[0];
-    if (target.isIntersecting && visibleCount < images.length) {
-      setVisibleCount((prev) => Math.min(prev + imagesPerLoad, images.length));
-    }
-  }, [visibleCount, images.length, imagesPerLoad]);
+  const handleObserver = useCallback(
+    (entries) => {
+      const target = entries[0];
+      if (target.isIntersecting && visibleCount < images.length) {
+        setVisibleCount((prev) => Math.min(prev + imagesPerLoad, images.length));
+      }
+    },
+    [visibleCount, images.length, imagesPerLoad]
+  );
 
   useEffect(() => {
-    const option = { root: null, rootMargin: "0px", threshold: 0.1 };
+    const option = { root: null, rootMargin: "200px", threshold: 0 };
+    // ↑ rootMargin helps load earlier on small screens
     const observer = new IntersectionObserver(handleObserver, option);
     if (observerRef.current) observer.observe(observerRef.current);
 
@@ -80,7 +99,7 @@ function Gallery() {
           <ButtonGroup>
             {/* Sort Button */}
             <Button
-              variant="outline-secondary"
+              variant={sortOrder === "desc" ? "outline-primary" : "outline-secondary"}
               size="sm"
               title={sortOrder === "desc" ? "Newest First" : "Oldest First"}
               onClick={() => setSortOrder(sortOrder === "desc" ? "asc" : "desc")}
@@ -89,6 +108,17 @@ function Gallery() {
             </Button>
 
             {/* Grid Buttons */}
+            <div className="d-sm-none">
+              <Button
+                variant={columns === 1 ? "primary" : "outline-secondary"}
+                size="sm"
+                title="1 per row (mobile)"
+                onClick={() => setColumns(1)}
+              >
+                <FaSquare />
+              </Button>
+            </div>
+
             <Button
               variant={columns === 3 ? "primary" : "outline-secondary"}
               size="sm"
@@ -124,38 +154,45 @@ function Gallery() {
               <FaSyncAlt />
             </Button>
           </ButtonGroup>
+
         </div>
       </div>
 
-      {/* Gallery Grid */}
-      <Row className="g-4">
+      {/* Gallery Grid using CSS Grid */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: `repeat(${columns}, 1fr)`,
+          gap: "1rem",
+          alignItems: "stretch",
+        }}
+      >
         {images.slice(0, visibleCount).map((img, index) => (
-          <Col key={img.id} xs={12} sm={6} md={12 / columns} lg={12 / columns}>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              whileHover={{ scale: 1.02 }}
-            >
-              <Card className="h-100 shadow-sm border-0 rounded-3">
-                <div className="ratio ratio-16x9">
-                  <Card.Img
-                    src={img.imageUrl}
-                    alt={img.title || "Gallery Image"}
-                    className="rounded-top"
-                    style={{ objectFit: "cover" }}
-                  />
-                </div>
-                <Card.Body>
-                  <Card.Title className="fw-semibold">{img.title}</Card.Title>
-                  <Card.Text className="text-muted small">{img.description}</Card.Text>
-                </Card.Body>
-              </Card>
-            </motion.div>
-          </Col>
+          <motion.div
+            key={img.id}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: index * 0.05 }}
+            whileHover={{ scale: 1.02 }}
+          >
+            <Card className="h-100 shadow-sm border-0 rounded-3 d-flex flex-column">
+              <div className="ratio ratio-16x9">
+                <Card.Img
+                  src={img.imageUrl}
+                  alt={img.title || "Gallery Image"}
+                  className="rounded-top"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+              <Card.Body className="d-flex flex-column">
+                <Card.Title className="fw-semibold">{img.title}</Card.Title>
+                <Card.Text className="text-muted small flex-grow-1">{img.description}</Card.Text>
+              </Card.Body>
+            </Card>
+          </motion.div>
         ))}
-      </Row>
+      </div>
 
       {/* Intersection observer target */}
       <div ref={observerRef} className="text-center mt-4">

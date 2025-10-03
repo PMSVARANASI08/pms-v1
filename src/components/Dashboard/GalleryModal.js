@@ -1,5 +1,5 @@
 import { FaTimes, FaUpload, FaEdit } from "react-icons/fa";
-
+import { Spinner } from "react-bootstrap";
 export default function GalleryModal({
   show,
   editingItem,
@@ -72,7 +72,18 @@ export default function GalleryModal({
               onClick={onSave}
               disabled={loading}
             >
-              {loading ? "Processing..." : editingItem ? <><FaEdit /> Save</> : <><FaUpload /> Upload</>}
+              {loading ? <>
+                Processing
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                  className="me-2"
+                />
+              </>
+                : editingItem ? <><FaEdit /> Save</> : <><FaUpload /> Upload</>}
             </button>
           </div>
         </div>

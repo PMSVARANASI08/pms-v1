@@ -120,18 +120,32 @@ export default function AdminDashboard() {
   };
 
   return (
-    <Container className="my-4">
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h2>
+    <Container className="my-4 position-relative">
+      {/* Header */}
+      <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+        <h2 className="mb-2 d-flex align-items-center gap-2">
           <FaImages className="me-2 text-primary" /> Admin Dashboard
         </h2>
-        <button className="btn btn-primary d-flex align-items-center gap-2" onClick={() => setShowModal(true)}>
-          <FaUpload /> Upload Image
+        <button onClick={logout} className="btn btn-danger d-flex align-items-center gap-2 mb-2">
+          <FaSignOutAlt /> Logout
         </button>
       </div>
       <p>Welcome, {currentUser?.email}</p>
-      <button onClick={logout} className="btn btn-danger mb-3 d-flex align-items-center gap-2">
-        <FaSignOutAlt /> Logout
+
+      {/* Floating Upload Button */}
+      <button
+        onClick={() => setShowModal(true)}
+        className="btn btn-primary d-flex align-items-center gap-2 position-fixed"
+        style={{
+          bottom: "30px",
+          right: "30px",
+          zIndex: 9999,
+          padding: "0.75rem 1.25rem",
+          borderRadius: "50px",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
+        }}
+      >
+        <FaUpload /> Upload Image
       </button>
 
       <GalleryTable gallery={gallery} onEdit={handleEdit} onDelete={handleDelete} />

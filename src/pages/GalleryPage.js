@@ -4,7 +4,7 @@ import Gallery from "../components/Gallery";
 function GalleryPage() {
   return <>
     <Gallery />
-    <PastEvents />
+    {/* <PastEvents /> */}
   </>;
 }
 
